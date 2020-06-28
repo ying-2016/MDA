@@ -1,5 +1,5 @@
-# MEDA
-The main code of MEDA.
+# MDA
+The main code of MDA.
 ## Prerequisite
 Matlab 2019b
 And we use LR classifier from LIBLINEAR, which is a library for large-scale regularized linear classification and regression
