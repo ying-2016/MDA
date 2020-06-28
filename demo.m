@@ -1,8 +1,7 @@
-% DEMO for testing MEDA on Office+Caltech10 datasets
+
 clear all
 clc
 addpath('.\liblinear\');
-%addpath('.\utility\');
 
 result={'target', 'F_measure','g_measure','AUC'};
 
@@ -46,7 +45,7 @@ result={'target', 'F_measure','g_measure','AUC'};
                 options.p=5;
                 options.mu=0.6;
                 
-                [~,pre,result] = MEDA(sname,tname,Xs,Ys,Xt,Yt,options,result);
+                [~,pre,result] = MDA(sname,tname,Xs,Ys,Xt,Yt,options,result);
                 
                
                 
