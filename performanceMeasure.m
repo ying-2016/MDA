@@ -23,7 +23,7 @@ function measure = performanceMeasure(s,t,test_label,score, predict_label)
 % F-measure = (alpha+1)*recall*precision / (recall+alpha*precison)
 % 
 
-%[X_coordi,Y_coordi,T_thre,AUC] = perfcurve(test_label',score',1);
+
 [~,~,~,AUC] = perfcurve(test_label,score,1);
 predict_label(predict_label>0.5) = 1;
 predict_label(predict_label<=0.5) = 0;
@@ -71,28 +71,7 @@ if (pd_recall+precision) ~= 0
     F_measure = 2 * pd_recall * precision / (pd_recall+precision);
 end
 
-SF1 = 0;
-alpha1 = 0.5; % precision over recall
-if alpha1*precision+pd_recall ~= 0
-    SF1 = (1+alpha1) * pd_recall * precision / (alpha1*precision+pd_recall);
-end
 
-SF2 = 0;
-alpha2 = 4; % recall over precision
-if alpha2*precision+pd_recall ~= 0
-    SF2 = (1+alpha2) * pd_recall * precision / (alpha2*precision+pd_recall);
-end
-
-FOR = 0; % false omission rate
-if FN+TN ~= 0
-    FOR = FN/(FN+TN);
-end
-
-MCC = 0;
-temp = sqrt((TP+FN)*(TP+FP)*(FN+TN)*(FP+TN));
-if temp ~= 0
-    MCC = (TP*TN-FP*FN)/temp;
-end
 
 if pd_recall+1-pf ~= 0
     g_measure = 2*pd_recall*(1-pf)/(pd_recall+1-pf);
@@ -100,14 +79,5 @@ else
     g_measure = 0;
 end
 
-GM = sqrt(pd_recall.*(1-pf));
 
-% % balance = 1-sqrt(((0-pf).^2+(1-pd).^2)/2)
-bal = 1- ( sqrt((0-pf).^2+(1-pd_recall).^2) ./ sqrt(2) );
-% leng=int(0.2*total_test);
-% for i=1:leng
-%     
-% end
-% display
-%measure = [acc, precision, pd_recall, pf, F_measure, SF2, AUC, g_measure, FOR, GM, bal, MCC, SF1, TP, FP, FN, TN];
 measure = {t,F_measure,g_measure,AUC};
